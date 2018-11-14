@@ -19,5 +19,8 @@
   "homepage": "https://github.com/samuelchristopher/best-dressed-vote#readme",
   "devDependencies": {
     "serve": "^10.1.1"
+  },
+  "dependencies": {
+    "@polymer/lit-element": "^0.6.3"
   }
 }
