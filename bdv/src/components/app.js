@@ -1,12 +1,13 @@
-import { h, Component } from 'preact';
-import { Router } from 'preact-router';
+import { h, Component } from 'preact'
+import { Router } from 'preact-router'
 
-import Header from './header';
+import Header from './header'
 
 // Code-splitting is automated for routes
-import Home from '../routes/home';
-import Profile from '../routes/profile';
-import Vote from '../routes/vote';
+import Home from '../routes/home'
+import Profile from '../routes/profile'
+import Vote from '../routes/vote'
+import AddPerson from '../routes/person/add'
 
 export default class App extends Component {
 	
@@ -28,6 +29,7 @@ export default class App extends Component {
 					<Profile path="/profile/:user" />
 					<Vote path="/vote" category="general" />
 					<Vote path="/vote/:category" />
+					<AddPerson path="/add-person" />
 				</Router>
 			</div>
 		);
