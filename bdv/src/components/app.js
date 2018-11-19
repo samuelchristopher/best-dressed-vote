@@ -1,5 +1,6 @@
 import { h, Component } from 'preact'
 import { Router } from 'preact-router'
+import * as firebase from 'firebase/app'
 
 import Header from './header'
 
@@ -10,6 +11,11 @@ import Vote from '../routes/vote'
 import AddPerson from '../routes/person/add'
 
 export default class App extends Component {
+
+	constructor() {
+		super()
+		this.showMessage = this.showMessage.bind(this)
+	}
 	
 	/** Gets fired when the route changes.
 	 *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
@@ -17,7 +23,30 @@ export default class App extends Component {
 	 */
 	handleRoute = e => {
 		this.currentUrl = e.url;
-	};
+	}
+
+	state = {
+		message: ''
+	}
+
+	componentDidMount() {
+		let config = {
+			apiKey: "AIzaSyDPPMtrWkgnakN8_K8ieHFR89HbysL0j2U",
+			authDomain: "bdv-app.firebaseapp.com",
+			databaseURL: "https://bdv-app.firebaseio.com",
+			projectId: "bdv-app",
+			storageBucket: "",
+			messagingSenderId: "513018580942"
+		}
+		firebase.initializeApp(config);
+	}
+
+	showMessage(messageContent) {
+		this.setState({
+			message: messageContent
+		})
+		setTimeout(() => this.setState({ message: '' }), 2000)
+	}
 
 	render() {
 		return (
@@ -29,8 +58,9 @@ export default class App extends Component {
 					<Profile path="/profile/:user" />
 					<Vote path="/vote" category="general" />
 					<Vote path="/vote/:category" />
-					<AddPerson path="/add-person" />
+					<AddPerson showMessage={this.showMessage} path="/add-person" />
 				</Router>
+				<div class="message">{this.state.message}</div>
 			</div>
 		);
 	}
