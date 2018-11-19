@@ -34,8 +34,6 @@ export default class AllUsersList extends Component {
               e.target.value.toLowerCase()) !== -1;
         })
 
-        console.log(updatedItems)
-
         this.setState({
             filteredOptions: updatedItems
         })
