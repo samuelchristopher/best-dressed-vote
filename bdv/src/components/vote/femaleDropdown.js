@@ -45,6 +45,8 @@ export default class FemaleDropdown extends Component {
         this.setState({
             selectedFemaleKey: e.target.value
         })
+
+        this.props.updateSelectedFemale(e.target.value)
     }
 
     render({ category }) {

@@ -3,9 +3,9 @@ import style from './style'
 import General from '../.././components/vote/general'
 import Specific from '../.././components/vote/specific'
 
-const Vote = ({ category }) => (
+const Vote = ({ category, showMessage }) => (
 	<div class={style.vote}>
-		{category === 'general' ? <General /> : <Specific category={category} />}
+		{category === 'general' ? <General /> : <Specific showMessage={showMessage} category={category} />}
 	</div>
 )
 

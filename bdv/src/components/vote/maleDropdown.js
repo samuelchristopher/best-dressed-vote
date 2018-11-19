@@ -45,6 +45,8 @@ export default class MaleDropdown extends Component {
         this.setState({
             selectedMaleKey: e.target.value
         })
+
+        this.props.updateSelectedMale(e.target.value)
     }
 
     render({ category }) {

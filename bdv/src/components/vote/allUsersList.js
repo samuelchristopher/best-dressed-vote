@@ -24,6 +24,7 @@ export default class AllUsersList extends Component {
 
     updateSelectedUserKey(e) {
         this.setState({ selectedUserKey: e.target.value})
+        this.props.updateSelectedUser(e.target.value)
     }
 
     updateFilter(e) {

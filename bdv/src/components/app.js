@@ -57,7 +57,7 @@ export default class App extends Component {
 					<Profile path="/profile/" user="me" />
 					<Profile path="/profile/:user" />
 					<Vote path="/vote" category="general" />
-					<Vote path="/vote/:category" />
+					<Vote showMessage={this.showMessage} path="/vote/:category" />
 					<AddPerson showMessage={this.showMessage} path="/add-person" />
 				</Router>
 				<div class="message">{this.state.message}</div>
