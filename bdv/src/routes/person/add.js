@@ -31,19 +31,19 @@ export default class AddPerson extends Component {
             if (person.isMale && person.isLecturer) {
                 console.log('person is male lecturer')
                 maleLecturersRef.child(`${key}`).set({ ...person })
-                voteCountRef.child('mLVotes').push().set({ mLKey: key, votes: 0 })
+                voteCountRef.child('mLVotes').child(key).set({ mLKey: key, votes: 0 })
             } else if (person.isFemale && person.isLecturer) {
                 console.log('person is female lecturer')
                 femaleLecturersRef.child(`${key}`).set({... person })
-                voteCountRef.child('fLVotes').push().set({ fLKey: key, votes: 0 })
+                voteCountRef.child('fLVotes').child(key).set({ fLKey: key, votes: 0 })
             } else if (person.isMale && person.isStudent) {
                 console.log('person is male student')
                 maleStudentsRef.child(`${key}`).set({ ...person })
-                voteCountRef.child('mSVotes').push().set({ mSKey: key, votes: 0 })
+                voteCountRef.child('mSVotes').child(key).set({ mSKey: key, votes: 0 })
             } else if (person.isFemale && person.isStudent) {
                 console.log ('person is female student')
                 femaleStudentsRef.child(`${key}`).set({ ...person })
-                voteCountRef.child('fSVotes').push().set({ fSKey: key, votes: 0 })
+                voteCountRef.child('fSVotes').child(key).set({ fSKey: key, votes: 0 })
             } else {
                 console.error('unrecogrnized user combination, please check if appropriate male or female and lecturer or student')
             }
