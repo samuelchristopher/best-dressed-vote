@@ -1,3 +1,27 @@
 .specific {
-    color: black;
+    padding: 0 40px;
+}
+
+.general {
+    padding: 0 40px;
+}
+
+.general__votefor {
+    font-weight: 400;
+    font-style: italic;
+    font-size: 13px;
+    margin-top: 0;
+}
+
+.general__catlink {
+    font-size: 32px;
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+
+.general__votecatcard {
+    border: 1px solid var(--primary-color);
+    border-radius: 18px;
+    margin: 0 0 30px 0;
+    padding: 30px 20px;
 }

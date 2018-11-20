@@ -3,6 +3,7 @@ import { Router } from 'preact-router'
 import * as firebase from 'firebase/app'
 
 import Header from './header'
+import Footer from './footer'
 
 // Code-splitting is automated for routes
 import Home from '../routes/home'
@@ -54,15 +55,15 @@ export default class App extends Component {
 			<div id="app">
 				<Header />
 				<Router onChange={this.handleRoute}>
-					<Home path="/" />
 					<Profile path="/profile/" user="me" />
 					<Profile path="/profile/:user" />
-					<Vote path="/vote" category="general" />
+					<Vote path="/" category="general" />
 					<Vote showMessage={this.showMessage} path="/vote/:category" />
 					<AddPerson showMessage={this.showMessage} path="/add-person" />
 					<Results path="/results" />
 				</Router>
 				<div class="message">{this.state.message}</div>
+				<Footer />
 			</div>
 		);
 	}

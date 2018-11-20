@@ -97,7 +97,7 @@ export default class Specific extends Component {
     render({ category }, { selectedUserKey, selectedFemaleKey, selectedMaleKey }) {
         return (
             <div class={style.specific}>
-                <a href="/vote">go back pls</a>
+                <a href="/">go back pls</a>
                 <h1>vote for {category}</h1>
                 <MaleDropdown category={category} updateSelectedMale={ this.updateSelectedMale } />
                 <FemaleDropdown category={category} updateSelectedFemale={ this.updateSelectedFemale } />

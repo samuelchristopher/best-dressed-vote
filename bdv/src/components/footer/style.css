@@ -1,0 +1,37 @@
+.footer {
+    margin: 15px auto;
+    text-align: center;
+}
+
+.footer__seperator {
+	height: 1px;
+	width: 70px;
+	margin: 0 auto 25px auto;
+	background: var(--primary-color);
+}
+
+.footer__quicklinks {
+    font-size: 11px;
+    font-weight: 700;
+    max-width: 280px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.footer__author {
+    color: var(--primary-color);
+    font-size: 11px;
+    font-weight: 400;
+    font-style: italic;
+    text-align: center;
+    margin: 30px 0 30px 0;
+}
+
+.footer__authorlink {
+    font-weight: 700;   
+    font-style: normal;
+    color: var(--primary-color);
+}
