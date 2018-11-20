@@ -1,6 +1,7 @@
 import { h, Component } from 'preact'
 import * as firebase from 'firebase/app'
 import 'firebase/database'
+import style from './style'
 
 export default class MaleDropdown extends Component {
     constructor() {
@@ -53,7 +54,7 @@ export default class MaleDropdown extends Component {
         let options = this.state.optionsToDisplay.map(key => <option selected={this.state.selectedMaleKey === `${key}`} value={`${key}`}>{this.state.maleOptions[key].name}</option>)
         return (
             <div>
-                <p>best dressed male {category}</p>
+                <p class={style.dropdown__label}>best dressed male {category}</p>
                 <select onChange={ this.updateSelectedMale }>
                     <option selected value="">choose male {category}</option>
                     { options }

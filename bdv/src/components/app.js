@@ -1,6 +1,7 @@
 import { h, Component } from 'preact'
 import { Router } from 'preact-router'
 import * as firebase from 'firebase/app'
+import style from './style'
 
 import Header from './header'
 import Footer from './footer'
@@ -47,13 +48,14 @@ export default class App extends Component {
 		this.setState({
 			message: messageContent
 		})
-		setTimeout(() => this.setState({ message: '' }), 2000)
+		setTimeout(() => this.setState({ message: '' }), 5000)
 	}
 
 	render() {
 		return (
 			<div id="app">
 				<Header />
+				<div hidden={this.state.message === ''}class={style.app__message}>{this.state.message}</div>
 				<Router onChange={this.handleRoute}>
 					<Profile path="/profile/" user="me" />
 					<Profile path="/profile/:user" />
@@ -62,7 +64,7 @@ export default class App extends Component {
 					<AddPerson showMessage={this.showMessage} path="/add-person" />
 					<Results path="/results" />
 				</Router>
-				<div class="message">{this.state.message}</div>
+				
 				<Footer />
 			</div>
 		);

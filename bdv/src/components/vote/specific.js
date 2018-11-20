@@ -97,12 +97,15 @@ export default class Specific extends Component {
     render({ category }, { selectedUserKey, selectedFemaleKey, selectedMaleKey }) {
         return (
             <div class={style.specific}>
-                <a href="/">go back pls</a>
-                <h1>vote for {category}</h1>
-                <MaleDropdown category={category} updateSelectedMale={ this.updateSelectedMale } />
-                <FemaleDropdown category={category} updateSelectedFemale={ this.updateSelectedFemale } />
-                <AllUsersList updateSelectedUser={ this.updateSelectedUser } /> 
-                <button disabled={selectedUserKey === '' || selectedMaleKey === '' || selectedFemaleKey === ''} onClick={ this.castVote }>cast vote!</button>
+                <a class={style.specific__backlink} href="/">go back</a>
+                <p class={style.specific__title}>vote for <br /><span class={style.specific__titlecat}>{category}s</span></p>
+                <div class={style.specific__inputcontainer}>
+                    <MaleDropdown category={category} updateSelectedMale={ this.updateSelectedMale } />
+                    <FemaleDropdown category={category} updateSelectedFemale={ this.updateSelectedFemale } />
+                    <AllUsersList updateSelectedUser={ this.updateSelectedUser } /> 
+                </div>
+                
+                <button class={style.specific__btn} disabled={selectedUserKey === '' || selectedMaleKey === '' || selectedFemaleKey === ''} onClick={ this.castVote }>cast vote!</button>
             </div>
         )
     }

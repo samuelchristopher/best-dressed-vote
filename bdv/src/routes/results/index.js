@@ -60,28 +60,28 @@ export default class Results extends Component {
             let { votes, key } =  obj
             let userName = users[key].name
             
-            return <h1>{userName} with {votes} votes</h1>
+            return <h1 class={style.results__winner}>{userName} with {votes} votes</h1>
         })
 
         let fLWinners = fLVotes.map(obj => {
             let { votes, key } =  obj
             let userName = users[key].name
             
-            return <h1>{userName} with {votes} votes</h1>
+            return <h1 class={style.results__winner}>{userName} with {votes} votes</h1>
         })
 
         let mSWinners = mSVotes.map(obj => {
             let { votes, key } =  obj
             let userName = users[key].name
             
-            return <h1>{userName} with {votes} votes</h1>
+            return <h1 class={style.results__winner}>{userName} with {votes} votes</h1>
         })
 
         let fSWinners = fSVotes.map(obj => {
             let { votes, key } =  obj
             let userName = users[key].name
             
-            return <h1>{userName} with {votes} votes</h1>
+            return <h1 class={style.results__winner}>{userName} with {votes} votes</h1>
         })
         return (
             <div class={style.results}>
@@ -89,10 +89,13 @@ export default class Results extends Component {
                     <input type="password" placeholder="passcode" onInput={ linkState(this, 'userInputPasscode') } />
                 </div>
                 <div class="actual-results" hidden={userInputPasscode !== passcode}>
-                    <div class="results-ml">best dressed male lecturer: {mLWinners}</div>
-                    <div class="results-fl">best dressed female lecturer: {fLWinners}</div>
-                    <div class="results-ms">best dressed male student: {mSWinners}</div>
-                    <div class="results-fs">best dressed female student: {fSWinners}</div>
+                    <div class="results-ml"><span class={style.results__title}>best dressed male lecturer is</span> {mLWinners}</div>
+                    <div class={style.results__seperator}></div>
+                    <div class="results-fl"><span class={style.results__title}>best dressed female lecturer is</span> {fLWinners}</div>
+                    <div class={style.results__seperator}></div>
+                    <div class="results-ms"><span class={style.results__title}>best dressed male student is</span> {mSWinners}</div>
+                    <div class={style.results__seperator}></div>
+                    <div class="results-fs"><span class={style.results__title}>best dressed female student is</span> {fSWinners}</div>
                 </div>
             </div>
         )

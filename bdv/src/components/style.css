@@ -1,0 +1,8 @@
+.app__message {
+    font-weight: 400;
+    margin: 30px;
+    border: 4px dashed var(--light);
+    font-style: italic;
+    padding: 30px;
+    line-height: 25px;
+}
