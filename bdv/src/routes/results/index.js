@@ -30,13 +30,21 @@ export default class Results extends Component {
                let winners = []
                let highestVoteCount = 0
                Object.keys(votes).map(key => {
-                   if (votes[key].votes >= highestVoteCount) {
+                   if (votes[key].votes > highestVoteCount) {
                        highestVoteCount = votes[key].votes
+                       winners = []
                        winners.push({
                            key,
                            votes: votes[key].votes,
                            category
                        })
+                   } else if (votes[key].votes == highestVoteCount) {
+                        highestVoteCount = votes[key].votes
+                        winners.push({
+                            key,
+                            votes: votes[key].votes,
+                            category
+                        })
                    }
                })
 
