@@ -9,6 +9,7 @@ import Home from '../routes/home'
 import Profile from '../routes/profile'
 import Vote from '../routes/vote'
 import AddPerson from '../routes/person/add'
+import Results from '../routes/results'
 
 export default class App extends Component {
 
@@ -59,6 +60,7 @@ export default class App extends Component {
 					<Vote path="/vote" category="general" />
 					<Vote showMessage={this.showMessage} path="/vote/:category" />
 					<AddPerson showMessage={this.showMessage} path="/add-person" />
+					<Results path="/results" />
 				</Router>
 				<div class="message">{this.state.message}</div>
 			</div>
