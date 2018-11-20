@@ -44,39 +44,7 @@ export default class Specific extends Component {
         let { selectedFemaleKey, selectedMaleKey, selectedUserKey } = this.state
         let { category, showMessage } = this.props
         let currentUserRef = firebase.database().ref(`users/${selectedUserKey}`)
-        currentUserRef.on('value', snap => {
-            let currentUser = snap.val()
-            if (category === 'lecturer') {
-                // check that current user has not voted in lecturer catergory
-                if (currentUser.hasVotedL === true) {
-                    return showMessage('you have voted for lecturers already.')
-                }
-                // check that current user is not voting for self
-                if (selectedFemaleKey === selectedUserKey || selectedMaleKey === selectedUserKey) {
-                    return showMessage('you cannot vote for yourself.')
-                }
-                // cast vote and set hasVotedL to true
-                let voteCountRef = firebase.database().ref('voteCount/')
-                let maleVoteCount = firebase.database().ref(`voteCount/${selectedMaleKey}`)
-                let femaleVoteCount = firebase.database().ref(`voteCount/${selectedFemaleKey}`)
-                maleVoteCount.on('value', snap => {
-                    voteCountRef.set({
-                        [selectedMaleKey]: snap.val() + 1
-                    })
-                    currentUserRef.set({
-                        hasVotedL: true
-                    })
-                })
-                femaleVoteCount.on('value', snap => {
-                    voteCountRef.set({
-                        [selectedFemaleKey]: snap.val() + 1
-                    })
-                    currentUserRef.set({
-                        hasVotedL: true
-                    })
-                })
-            }
-        })
+        console.log('should cast vote here!!!')
     }
 
     render({ category }, { selectedUserKey }) {
@@ -87,7 +55,7 @@ export default class Specific extends Component {
                 <MaleDropdown category={category} updateSelectedMale={ this.updateSelectedMale } />
                 <FemaleDropdown category={category} updateSelectedFemale={ this.updateSelectedFemale } />
                 <AllUsersList updateSelectedUser={ this.updateSelectedUser } /> 
-                <button disabled={this.selectedUserKey === ''} onClick={ this.castVote }>cast vote!</button>
+                <button disabled={selectedUserKey === ''} onClick={ this.castVote }>cast vote!</button>
             </div>
         )
     }

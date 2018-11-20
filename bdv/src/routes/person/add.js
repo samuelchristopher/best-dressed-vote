@@ -24,26 +24,31 @@ export default class AddPerson extends Component {
         let femaleLecturersRef = firebase.database().ref('fL/')
         let maleStudentsRef = firebase.database().ref('mS/')
         let femaleStudentsRef = firebase.database().ref('fS/')
+        let voteCountRef = firebase.database().ref('voteCount/')
 
         allUsersRef.then(data => {
             let { key } = data
             if (person.isMale && person.isLecturer) {
                 console.log('person is male lecturer')
                 maleLecturersRef.child(`${key}`).set({ ...person })
+                voteCountRef.child('mLVotes').push().set({ mLKey: key, votes: 0 })
             } else if (person.isFemale && person.isLecturer) {
                 console.log('person is female lecturer')
                 femaleLecturersRef.child(`${key}`).set({... person })
+                voteCountRef.child('fLVotes').push().set({ fLKey: key, votes: 0 })
             } else if (person.isMale && person.isStudent) {
                 console.log('person is male student')
                 maleStudentsRef.child(`${key}`).set({ ...person })
+                voteCountRef.child('mSVotes').push().set({ mSKey: key, votes: 0 })
             } else if (person.isFemale && person.isStudent) {
                 console.log ('person is female student')
                 femaleStudentsRef.child(`${key}`).set({ ...person })
+                voteCountRef.child('fSVotes').push().set({ fSKey: key, votes: 0 })
             } else {
                 console.error('unrecogrnized user combination, please check if appropriate male or female and lecturer or student')
             }
         })
-        allUsersRef.set({ ...person })
+        allUsersRef.set({ ...person, hasVotedL: false, hasVotedS: false })
         
         return this.props.showMessage('added person!')
         
