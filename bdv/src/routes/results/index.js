@@ -9,7 +9,10 @@ export default class Results extends Component {
         users: {},
         passcode: 'whowon?',
         userInputPasscode: '',
-        results: {}
+        fLVotes: [],
+        mLVotes: [],
+        fSVotes: [],
+        mSVotes: []
     }
 
     componentDidMount() {
@@ -20,7 +23,6 @@ export default class Results extends Component {
             })
         })
         let voteCountRef = firebase.database().ref('voteCount/')
-        let results = {}
         voteCountRef.on('value', snap => {
            let voteCount = snap.val()
            Object.keys(voteCount).map(category => {
@@ -37,28 +39,52 @@ export default class Results extends Component {
                        })
                    }
                })
-              results = {
-                  ...results,
-                  [category]: winners
-              } 
 
-              this.setState(results)
-              console.log(results)
+              this.setState({
+                  [category]: winners
+              })
            })
         })
     }    
 
-    render({}, { userInputPasscode, passcode, results }) {
+    render({}, { userInputPasscode, passcode, fLVotes, mLVotes, fSVotes, mSVotes, users }) {
+        let mLWinners = mLVotes.map(obj => {
+            let { votes, key } =  obj
+            let userName = users[key].name
+            
+            return <h1>{userName} with {votes} votes</h1>
+        })
+
+        let fLWinners = fLVotes.map(obj => {
+            let { votes, key } =  obj
+            let userName = users[key].name
+            
+            return <h1>{userName} with {votes} votes</h1>
+        })
+
+        let mSWinners = mSVotes.map(obj => {
+            let { votes, key } =  obj
+            let userName = users[key].name
+            
+            return <h1>{userName} with {votes} votes</h1>
+        })
+
+        let fSWinners = fSVotes.map(obj => {
+            let { votes, key } =  obj
+            let userName = users[key].name
+            
+            return <h1>{userName} with {votes} votes</h1>
+        })
         return (
             <div class={style.results}>
                 <div class="results-passcode" hidden={userInputPasscode === passcode}>
                     <input type="password" placeholder="passcode" onInput={ linkState(this, 'userInputPasscode') } />
                 </div>
                 <div class="actual-results" hidden={userInputPasscode !== passcode}>
-                    <div class="results-ml">best dressed male lecturer: </div>
-                    <div class="results-fl">best dressed female lecturer: </div>
-                    <div class="results-ms">best dressed male student: </div>
-                    <div class="results-fs">best dressed female student: </div>
+                    <div class="results-ml">best dressed male lecturer: {mLWinners}</div>
+                    <div class="results-fl">best dressed female lecturer: {fLWinners}</div>
+                    <div class="results-ms">best dressed male student: {mSWinners}</div>
+                    <div class="results-fs">best dressed female student: {fSWinners}</div>
                 </div>
             </div>
         )
