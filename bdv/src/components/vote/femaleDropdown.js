@@ -55,7 +55,7 @@ export default class FemaleDropdown extends Component {
             <div>
                 <p>best dressed female {category}</p>
                 <select onChange={ this.updateSelectedFemale }>
-                    <option selected value={0}>choose female {category}</option>
+                    <option selected value="">choose female {category}</option>
                     { options }
                 </select>
             </div>

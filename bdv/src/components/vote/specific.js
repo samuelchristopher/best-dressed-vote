@@ -41,16 +41,27 @@ export default class Specific extends Component {
         })
     }
 
-    updateUserHasVotedTransaction(userRef, userKey) {
-        console.log('should updated user has voted ref here')
+    updateUserHasVotedTransaction(userRef, userKey, category) {
+        userRef.transaction(user => {
+            if (category === 'lecturer') {
+                user.hasVotedL = true
+            } else if (category === 'student') {
+                user.hasVotedS = true
+            }
+            return user
+        })
     }
 
-    castVoteTransaction(voteRef, userKey) {
+    castVoteTransaction(voteRef, key) {
         voteRef.transaction((vote) => {
             if (vote)  {
                 vote.votes++
-                let userRef = firebase.database().ref(`users/${userKey}`)
-                this.updateUserHasVotedTransaction(userRef, userKey)
+            } else {
+                vote = {
+                    votes: 0,
+                    key
+                }
+                vote.votes++
             }
             return vote
         })
@@ -64,22 +75,26 @@ export default class Specific extends Component {
         currentUserRef.once('value', snap => {
             let userHasVotedL = snap.val().hasVotedL
             let userHasVotedS = snap.val().hasVotedS
-            if (category === 'lecturer' && userHasVotedL) {
-                return showMessage('sorry, you cannot vote more than once')
+            if ((category === 'lecturer' && userHasVotedL) || (category === 'student' && userHasVotedS)) {
+                return showMessage(`sorry, you cannot vote more than once. you have already voted for ${category}`)
             } else if (selectedFemaleKey === selectedUserKey || selectedMaleKey === selectedUserKey) {
                 return showMessage('sorry, you cannot vote for yourself')
             } else {
                 let maleRef = category === 'lecturer' ? `voteCount/mLVotes/${selectedMaleKey}` : `voteCount/mSVotes/${selectedMaleKey}`
                 let maleVoteRef = firebase.database().ref(maleRef)
-                this.castVoteTransaction(maleVoteRef, selectedUserKey)
-                console.log('cast vote here!')
+                let femaleRef = category === 'lecturer' ? `voteCount/fLVotes/${selectedFemaleKey}` : `voteCount/fSVotes/${selectedFemaleKey}`
+                let femaleVoteRef = firebase.database().ref(femaleRef)
+                this.castVoteTransaction(maleVoteRef, selectedMaleKey)
+                this.castVoteTransaction(femaleVoteRef, selectedFemaleKey)
+                this.updateUserHasVotedTransaction(currentUserRef, selectedUserKey, category)
+                return showMessage('you have casted your vote!')
             }
             
         })
         
     }
 
-    render({ category }, { selectedUserKey }) {
+    render({ category }, { selectedUserKey, selectedFemaleKey, selectedMaleKey }) {
         return (
             <div class={style.specific}>
                 <a href="/vote">go back pls</a>
@@ -87,7 +102,7 @@ export default class Specific extends Component {
                 <MaleDropdown category={category} updateSelectedMale={ this.updateSelectedMale } />
                 <FemaleDropdown category={category} updateSelectedFemale={ this.updateSelectedFemale } />
                 <AllUsersList updateSelectedUser={ this.updateSelectedUser } /> 
-                <button disabled={selectedUserKey === ''} onClick={ this.castVote }>cast vote!</button>
+                <button disabled={selectedUserKey === '' || selectedMaleKey === '' || selectedFemaleKey === ''} onClick={ this.castVote }>cast vote!</button>
             </div>
         )
     }
