@@ -40,11 +40,30 @@ export default class Specific extends Component {
         })
     }
 
+    castVoteTransaction(voteRef, key) {
+        voteRef.transaction((voteCount) => {
+            console.log(voteCount)
+        })
+
+    }
+
     castVote() {
         let { selectedFemaleKey, selectedMaleKey, selectedUserKey } = this.state
         let { category, showMessage } = this.props
         let currentUserRef = firebase.database().ref(`users/${selectedUserKey}`)
-        console.log('should cast vote here!!!')
+        currentUserRef.once('value', snap => {
+            let userHasVotedL = snap.val().hasVotedL
+            let userHasVotedS = snap.val().hasVotedS
+            if (category === 'lecturer' && userHasVotedL) {
+                return showMessage('sorry, you cannot vote more than once')
+            } else if (selectedFemaleKey === selectedUserKey || selectedMaleKey === selectedUserKey) {
+                return showMessage('sorry, you cannot vote for yourself')
+            } else {
+                console.log('cast vote here!')
+            }
+            
+        })
+        
     }
 
     render({ category }, { selectedUserKey }) {
