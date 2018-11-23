@@ -6,7 +6,6 @@ const Footer = () => (
         <div class={style.footer__seperator}></div>
         <div class={style.footer__quicklinks}>
             <a href="/">Vote</a>
-            <a href="/">About</a>
             <a href="/results">Results</a>
         </div>
         <div class={style.footer__author}>

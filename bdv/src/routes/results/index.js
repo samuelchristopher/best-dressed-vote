@@ -7,7 +7,7 @@ import style from './style'
 export default class Results extends Component {
     state = {
         users: {},
-        passcode: 'whowon?',
+        passcode: 'winnersare?',
         userInputPasscode: '',
         fLVotes: [],
         mLVotes: [],
